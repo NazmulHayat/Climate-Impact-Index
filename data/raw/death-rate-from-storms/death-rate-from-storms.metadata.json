@@ -1,0 +1,33 @@
+{
+  "chart": {
+    "title": "Death rate from storms",
+    "subtitle": "Death rates are measured as the number of deaths per 100,000. Disasters include all geophysical, meteorological and climate events including earthquakes, volcanic activity, landslides, drought, wildfires, storms, and flooding.",
+    "note": "Data includes disasters recorded up to October 2025.",
+    "citation": "EM-DAT, CRED / UCLouvain",
+    "originalChartUrl": "https://ourworldindata.org/explorers/natural-disasters?Disaster+Type=Storms&Impact=Deaths&Timespan=Annual&Per+capita=true&country=~OWID_WRL",
+    "selection": [
+      "World"
+    ]
+  },
+  "columns": {
+    "Country name": {
+      "titleShort": "Country name",
+      "titleLong": "Country name",
+      "type": "EntityName",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Country name” [dataset].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    },
+    "Death rates from storms": {
+      "titleShort": "Death rates from storms",
+      "titleLong": "Death rates from storms",
+      "unit": "per 100,000",
+      "type": "Numeric",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Death rates from storms” [dataset]. EM-DAT, CRED / UCLouvain [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    }
+  },
+  "dateDownloaded": "2025-12-24",
+  "activeFilters": {}
+}

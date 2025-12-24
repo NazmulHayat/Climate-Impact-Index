@@ -1,0 +1,33 @@
+{
+  "chart": {
+    "title": "Total number of people affected by floods per 100,000",
+    "subtitle": "The total number of people affected is the sum of injured, requiring assistance and homeless.",
+    "note": "Data includes disasters recorded up to October 2025.",
+    "citation": "EM-DAT, CRED / UCLouvain",
+    "originalChartUrl": "https://ourworldindata.org/explorers/natural-disasters?Disaster+Type=Floods&Impact=Total+affected&Timespan=Annual&Per+capita=true&country=~OWID_WRL",
+    "selection": [
+      "World"
+    ]
+  },
+  "columns": {
+    "Country name": {
+      "titleShort": "Country name",
+      "titleLong": "Country name",
+      "type": "EntityName",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Country name” [dataset].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    },
+    "Total number of people affected by floods per 100,000": {
+      "titleShort": "Total number of people affected by floods per 100,000",
+      "titleLong": "Total number of people affected by floods per 100,000",
+      "unit": "per 100,000",
+      "type": "Numeric",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Total number of people affected by floods per 100,000” [dataset]. EM-DAT, CRED / UCLouvain [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    }
+  },
+  "dateDownloaded": "2025-12-24",
+  "activeFilters": {}
+}
