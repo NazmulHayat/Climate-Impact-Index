@@ -43,7 +43,7 @@ st.markdown("""
 
 st.title("🌍 Global Climate Impact Index")
 
-st.markdown("This analysis focuses on the **four most common climate-caused disasters**: floods, storms, extreme temperatures, and droughts.")
+st.markdown("This analysis focuses on the **four most common climate-caused disasters**: floods, storms, extreme temperatures, and droughts. We worked with data spanning **1900-2025**.")
 
 df = pd.read_csv("data/processed/analysis_data_set.csv")
 
@@ -73,10 +73,11 @@ def rebase_impact(df, col="climate_impact_index"):
 
 periods = sorted(df["period"].unique())
 max_period = min(2020, int(max(periods)))
+min_period = max(1960, int(min(periods)))
 
 selected_period = st.slider(
     "Select 5-year period",
-    min_value=int(min(periods)),
+    min_value=min_period,
     max_value=max_period,
     step=5,
     value=max_period
