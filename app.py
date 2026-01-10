@@ -332,18 +332,28 @@ top_20_improved["Rank"] = top_20_improved["Rank"].astype(int)
 max_rank = top_20_improved["Rank"].max()
 min_rank = top_20_improved["Rank"].min()
 
-if max_rank > min_rank:
-    st.dataframe(
-        top_20_improved.style.format({
-            "CLI Score": "{:.3f}"
-        }).background_gradient(
-            subset=["Rank"], 
-            cmap="Reds_r"
-        ),
-        use_container_width=True,
-        hide_index=True
-    )
-else:
+try:
+    if max_rank > min_rank:
+        st.dataframe(
+            top_20_improved.style.format({
+                "CLI Score": "{:.3f}"
+            }).background_gradient(
+                subset=["Rank"], 
+                cmap="Reds_r"
+            ),
+            use_container_width=True,
+            hide_index=True
+        )
+    else:
+        st.dataframe(
+            top_20_improved.style.format({
+                "CLI Score": "{:.3f}"
+            }),
+            use_container_width=True,
+            hide_index=True
+        )
+except ImportError:
+    # Fallback if matplotlib is not available
     st.dataframe(
         top_20_improved.style.format({
             "CLI Score": "{:.3f}"
