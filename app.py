@@ -22,6 +22,17 @@ st.markdown("""
     }
     .stPlotlyChart {
         margin: 0 auto;
+        margin-top: -1rem !important;
+    }
+    h3 {
+        margin-bottom: 0.25rem !important;
+        margin-top: 0.5rem !important;
+    }
+    [data-testid="stVerticalBlock"] {
+        gap: 0.25rem !important;
+    }
+    div[data-testid="stVerticalBlock"]:has(h3) {
+        margin-bottom: -0.5rem !important;
     }
     footer {
         margin-top: 4rem;
@@ -295,14 +306,21 @@ st.caption(
 st.divider()
 st.subheader("🎯 Climate Impact Predictions for 2026")
 
-from ml_model_cont_improved import train_and_predict, create_cli_map
+from ml_model_cont_improved import load_predictions, create_cli_map
 
 @st.cache_data
-def load_improved_model():
-    return train_and_predict()
+def load_predictions_data():
+    return load_predictions()
 
-with st.spinner("Training model and generating predictions... This may take a minute."):
-    model_improved, pred_df, feature_importance, features = load_improved_model()
+try:
+    pred_df, feature_importance, features = load_predictions_data()
+except FileNotFoundError as e:
+    st.error("⚠️ Prediction files not found!")
+    st.info("Please run `python ml_model_cont_improved.py` first to generate predictions.")
+    st.stop()
+except Exception as e:
+    st.error(f"Error loading predictions: {e}")
+    st.stop()
 
 if pred_df.empty:
     st.error("No prediction data available. Please check the data.")

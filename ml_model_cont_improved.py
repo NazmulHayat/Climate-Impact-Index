@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import RandomizedSearchCV
+import os
 
 
 def filter_valid_countries(df):
@@ -41,7 +42,7 @@ def create_cli_map(pred_df):
             x=0.5, y=0.5,
             showarrow=False
         )
-        fig.update_layout(title="Climate Impact Index (CLI): Most Affected Countries (2026 Prediction)")
+        fig.update_layout(title=None, margin=dict(l=0, r=0, t=0, b=0))
         return fig, pred_df
     
     pred_df = pred_df.copy()
@@ -55,7 +56,7 @@ def create_cli_map(pred_df):
             x=0.5, y=0.5,
             showarrow=False
         )
-        fig.update_layout(title="Climate Impact Index (CLI): Most Affected Countries (2026)")
+        fig.update_layout(title=None, margin=dict(l=0, r=0, t=0, b=0))
         return fig, pred_df
     
     pred_df["CLI_rank"] = pred_df["CLI"].rank(method='dense', ascending=False).astype(int)
@@ -94,7 +95,6 @@ def create_cli_map(pred_df):
         },
         color_discrete_map=category_colors,
         category_orders={"risk_category": ["1-10", "11-20", "21-50", "51-100", ">100"]},
-        title="Climate Impact Index (CLI): Most Affected Countries (2026)",
         labels={"risk_category": "Risk Category"}
     )
     
@@ -106,20 +106,26 @@ def create_cli_map(pred_df):
     )
     
     fig.update_layout(
-        margin=dict(l=0, r=0, t=60, b=0),
-        height=700,
+        margin=dict(l=0, r=150, t=50, b=0),
+        height=600,
         geo=dict(
             showframe=False,
             showcoastlines=True,
             projection_type='natural earth'
         ),
-        title_font_size=18
+        showlegend=True,
+        legend=dict(
+            x=1.02,
+            y=1,
+            xanchor='left',
+            yanchor='top'
+        )
     )
     
     return fig, pred_df
 
 
-def train_and_predict():
+def _train_and_predict():
     df = pd.read_csv("data/processed/analysis_data_set_continuous.csv")
     df = filter_valid_countries(df)
     df = df.sort_values(["country", "period"])
@@ -335,19 +341,65 @@ def train_and_predict():
         'importance': best_model_rf.feature_importances_
     }).sort_values('importance', ascending=False)
 
+    # Save predictions to CSV
+    pred_df.to_csv('data/processed/predictions_2026.csv', index=False)
+    feature_importance.to_csv('data/processed/feature_importance.csv', index=False)
+    
     return best_model_rf, pred_df, feature_importance, FEATURES
 
 
-if __name__ == "__main__":
-    model, pred_df, feature_importance, FEATURES = train_and_predict()
+def load_predictions():
+    """Load predictions from CSV file"""
+    cache_path = 'data/processed/predictions_2026.csv'
+    feat_cache_path = 'data/processed/feature_importance.csv'
     
-    print(f"Predictions for 2026 (using 2025 data):")
+    if not os.path.exists(cache_path) or not os.path.exists(feat_cache_path):
+        raise FileNotFoundError(f"Prediction files not found. Please run ml_model_cont_improved.py first to generate predictions.")
+    
+    pred_df = pd.read_csv(cache_path)
+    feature_importance = pd.read_csv(feat_cache_path)
+    features = feature_importance['feature'].tolist()
+    
+    return pred_df, feature_importance, features
+
+
+def train_and_predict(use_cache=True):
+    """Train model and predict, using cached CSV if available"""
+    cache_path = 'data/processed/predictions_2026.csv'
+    feat_cache_path = 'data/processed/feature_importance.csv'
+    
+    if use_cache and os.path.exists(cache_path) and os.path.exists(feat_cache_path):
+        try:
+            pred_df = pd.read_csv(cache_path)
+            feature_importance = pd.read_csv(feat_cache_path)
+            features = feature_importance['feature'].tolist()
+            # Return None for model since we don't need it when loading from cache
+            return None, pred_df, feature_importance, features
+        except Exception as e:
+            print(f"Error loading cache: {e}")
+    
+    # If no cache or cache failed, train new model
+    return _train_and_predict()
+
+
+if __name__ == "__main__":
+    print("Training model and generating predictions...")
+    print("This may take a few minutes...\n")
+    
+    model, pred_df, feature_importance, FEATURES = _train_and_predict()
+    
+    print(f"✓ Predictions saved to data/processed/predictions_2026.csv")
+    print(f"✓ Feature importance saved to data/processed/feature_importance.csv")
+    print(f"\nPredictions for 2026 (using 2025 data):")
     print(f"Countries predicted: {len(pred_df)}")
-    print(f"Mean predicted impact: {pred_df['predicted_impact_2026'].mean():.4f}")
+    print(f"Mean predicted impact: {pred_df['predicted_impact_rebased_2026'].mean():.4f}")
     
     print("\nFeature Importance:")
     print(feature_importance.to_string(index=False))
     
+    # Calculate CLI rank for display
+    pred_df["CLI_rank"] = pred_df["CLI"].rank(method='dense', ascending=False).astype(int)
+    
     print("\nTop 10 Countries Predicted Highest Impact in 2026:")
-    top_10 = pred_df.nlargest(10, "predicted_impact_2026")[["country", "predicted_impact_2026", "CLI"]]
+    top_10 = pred_df.nlargest(10, "CLI")[["country", "CLI", "CLI_rank"]].sort_values("CLI_rank")
     print(top_10.to_string(index=False))

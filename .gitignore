@@ -67,5 +67,9 @@ ENV/
 .env
 .env.local
 
+# Cache
+cache/
+*.pkl
+
 # OS
 .DS_Store
