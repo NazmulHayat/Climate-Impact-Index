@@ -1,5 +1,8 @@
 Check it out: https://climate-impact-index.streamlit.app !
 
+<img width="1298" height="701" alt="image" src="https://github.com/user-attachments/assets/09b0a312-f78d-40a5-8bf3-13445956298e" />
+
+
 # 🌍 Global Climate Impact Index
 
 A machine learning-powered web application that predicts climate impact vulnerability for countries worldwide. The project analyzes data from the four most common climate-caused disasters: **floods, droughts, storms, and extreme temperatures**.
