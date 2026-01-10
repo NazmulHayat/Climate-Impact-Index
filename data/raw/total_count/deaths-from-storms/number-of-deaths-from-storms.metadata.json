@@ -1,0 +1,32 @@
+{
+  "chart": {
+    "title": "Number of deaths from storms",
+    "subtitle": "Storms include tornado, hail, thunderstorm, sand storm, blizzards and extreme wind events.",
+    "note": "Data includes disasters recorded up to October 2025.",
+    "citation": "EM-DAT, CRED / UCLouvain",
+    "originalChartUrl": "https://ourworldindata.org/explorers/natural-disasters?Disaster+Type=Storms&Impact=Deaths&Timespan=Annual&Per+capita=false&country=~OWID_WRL",
+    "selection": [
+      "World"
+    ]
+  },
+  "columns": {
+    "country": {
+      "titleShort": "Country name",
+      "titleLong": "Country name",
+      "type": "EntityName",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Country name” [dataset].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    },
+    "deaths_storm": {
+      "titleShort": "Number of deaths from storms",
+      "titleLong": "Number of deaths from storms",
+      "type": "Integer",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Number of deaths from storms” [dataset]. EM-DAT, CRED / UCLouvain [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    }
+  },
+  "dateDownloaded": "2026-01-09",
+  "activeFilters": {}
+}

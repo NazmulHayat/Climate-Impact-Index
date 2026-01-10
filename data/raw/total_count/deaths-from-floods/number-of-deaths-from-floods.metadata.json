@@ -1,0 +1,31 @@
+{
+  "chart": {
+    "title": "Number of deaths from floods",
+    "note": "Data includes disasters recorded up to October 2025.",
+    "citation": "EM-DAT, CRED / UCLouvain",
+    "originalChartUrl": "https://ourworldindata.org/explorers/natural-disasters?Disaster+Type=Floods&Impact=Deaths&Timespan=Annual&Per+capita=false&country=~OWID_WRL",
+    "selection": [
+      "World"
+    ]
+  },
+  "columns": {
+    "country": {
+      "titleShort": "Country name",
+      "titleLong": "Country name",
+      "type": "EntityName",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Country name” [dataset].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    },
+    "deaths_flood": {
+      "titleShort": "Number of deaths from floods",
+      "titleLong": "Number of deaths from floods",
+      "type": "Integer",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “Number of deaths from floods” [dataset]. EM-DAT, CRED / UCLouvain [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    }
+  },
+  "dateDownloaded": "2026-01-09",
+  "activeFilters": {}
+}
